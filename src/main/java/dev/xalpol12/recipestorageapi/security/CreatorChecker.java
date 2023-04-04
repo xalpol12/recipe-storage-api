@@ -1,11 +1,11 @@
 package dev.xalpol12.recipestorageapi.security;
 
+import dev.xalpol12.recipestorageapi.repository.entities.Recipe;
+import dev.xalpol12.recipestorageapi.repository.entities.User;
+import dev.xalpol12.recipestorageapi.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import recipes.repository.enitites.Recipe;
-import recipes.repository.enitites.User;
-import recipes.service.RecipeService;
 
 import java.util.Optional;
 
