@@ -1,0 +1,17 @@
+[
+    {
+        "email" : "jankowalski@student.pl",
+        "password" : "janeczek",
+        "role" : "ROLE_USER"
+    },
+    {
+        "email" : "testing@test.pl",
+        "password" : "test",
+        "role" : "ROLE_USER"
+    },
+    {
+        "email" : "maciej@maciej.com",
+        "password" : "maciej",
+        "role" : "ROLE_USER"
+    }
+]
