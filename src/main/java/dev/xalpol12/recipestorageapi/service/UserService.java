@@ -2,7 +2,7 @@ package dev.xalpol12.recipestorageapi.service;
 
 import dev.xalpol12.recipestorageapi.repository.UserRepository;
 import dev.xalpol12.recipestorageapi.repository.entities.User;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,10 +10,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
+
+    @Autowired
+    public UserService(UserRepository userRepository, PasswordEncoder encoder) {
+        this.userRepository = userRepository;
+        this.encoder = encoder;
+    }
 
     private void saveUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
@@ -35,7 +40,5 @@ public class UserService {
             saveUser(user);
         }
     }
-
-
 }
 

@@ -8,7 +8,7 @@ import dev.xalpol12.recipestorageapi.security.UserDetailsImpl;
 import dev.xalpol12.recipestorageapi.service.RecipeService;
 import dev.xalpol12.recipestorageapi.service.dto.NewRecipeDTO;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequiredArgsConstructor
 @Validated
 @RequestMapping("/api/recipe")
 public class RecipeController {
@@ -28,7 +27,14 @@ public class RecipeController {
     private final UserRepository userRepository;
     private final CreatorChecker creatorChecker;
 
-    @PostMapping("/new")
+    @Autowired
+    public RecipeController(RecipeService recipeService, UserRepository userRepository, CreatorChecker creatorChecker) {
+        this.recipeService = recipeService;
+        this.userRepository = userRepository;
+        this.creatorChecker = creatorChecker;
+    }
+
+    @PostMapping("/new") //TODO : DTO
     public ResponseEntity<NewRecipeDTO> postRecipe(@Valid @RequestBody Recipe recipe, Authentication auth) {
         User user = userRepository.findUserByEmail(((UserDetailsImpl)auth.getPrincipal()).getUsername());          //TODO: can I simplify this?
         recipe.setAuthor(user);
@@ -61,7 +67,7 @@ public class RecipeController {
         return new ResponseEntity<>(recipeService.update(recipe, id));
     }
 
-    @GetMapping("/search")
+    @GetMapping("/search") //TODO: change to post
     public Object getRecipeByCategory(@RequestParam(name = "category", required = false) String category,
                                       @RequestParam(name = "name", required = false) String name) {
         if(category != null && name == null) {      //exclusive param search

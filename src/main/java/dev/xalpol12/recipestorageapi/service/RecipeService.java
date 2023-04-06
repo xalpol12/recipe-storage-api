@@ -3,6 +3,7 @@ package dev.xalpol12.recipestorageapi.service;
 import dev.xalpol12.recipestorageapi.repository.RecipeRepository;
 import dev.xalpol12.recipestorageapi.repository.entities.Recipe;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +11,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class RecipeService {
 
     RecipeRepository recipeRepository;
+
+    @Autowired
+    public RecipeService(RecipeRepository recipeRepository) {
+        this.recipeRepository = recipeRepository;
+    }
 
     public Optional<Recipe> findById(Long id) {
         return Optional.ofNullable(recipeRepository.findById(id).orElse(null));

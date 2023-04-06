@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+
 public class UserDetailsImpl implements UserDetails {
     private final String email;
     private final String password;
